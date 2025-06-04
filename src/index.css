@@ -46,6 +46,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* Prevent zoom on double tap on iOS */
+  touch-action: manipulation;
 }
 
 body {
@@ -55,10 +57,21 @@ body {
   color: var(--text-primary);
   background-color: var(--bg-primary);
   line-height: 1.6;
+  /* Better text rendering on mobile */
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 #root {
   min-height: 100vh;
+  min-height: 100dvh; /* Use dynamic viewport height for mobile */
+}
+
+/* Mobile-first responsive design */
+@media (max-width: 768px) {
+  html {
+    font-size: 14px; /* Slightly smaller base font size on mobile */
+  }
 }
 
 /* Utility classes */
@@ -72,6 +85,29 @@ body {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
+}
+
+/* Mobile touch improvements */
+button, 
+input, 
+textarea, 
+select, 
+a {
+  /* Improve touch responsiveness */
+  touch-action: manipulation;
+  /* Remove tap highlight on mobile */
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Ensure minimum touch target size on mobile */
+@media (max-width: 768px) {
+  button:not(.no-min-size),
+  input[type="button"]:not(.no-min-size),
+  input[type="submit"]:not(.no-min-size),
+  a:not(.no-min-size) {
+    min-height: 44px;
+    min-width: 44px;
+  }
 }
 
 /* Sidebar styles (for map page) */
@@ -96,6 +132,18 @@ body {
   background: var(--bg-secondary);
   border-color: var(--primary-color);
   box-shadow: var(--shadow-md);
+}
+
+/* Mobile-specific sidebar card styling */
+@media (max-width: 768px) {
+  .sidebar-card:hover {
+    transform: none; /* Disable hover transforms on mobile */
+  }
+  
+  .sidebar-card:active {
+    transform: scale(0.98);
+    background: var(--bg-secondary);
+  }
 }
 
 /* Map icons */
@@ -126,10 +174,36 @@ body {
   color: white;
 }
 
+/* Mobile-specific map icon styling */
+@media (max-width: 768px) {
+  .pizza-icon {
+    width: 28px;
+    height: 28px;
+    transform: translate(-14px, -14px);
+    font-size: 18px;
+  }
+  
+  .pizza-icon:hover {
+    transform: translate(-14px, -14px) scale(1.1);
+  }
+  
+  .pizza-icon.selected {
+    transform: translate(-14px, -14px) scale(1.2);
+  }
+}
+
 /* Focus styles for accessibility */
 *:focus {
   outline: 2px solid var(--primary-color);
   outline-offset: 2px;
+}
+
+/* Better focus styles for mobile */
+@media (max-width: 768px) {
+  *:focus {
+    outline-width: 3px;
+    outline-offset: 3px;
+  }
 }
 
 /* Smooth animations for reduced motion users */
@@ -147,6 +221,17 @@ body {
   }
 }
 
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  :root {
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 4px 15px rgba(0, 0, 0, 0.4);
+    --shadow-lg: 0 10px 30px rgba(0, 0, 0, 0.5);
+    --border-light: #666;
+    --border-medium: rgba(0, 0, 0, 0.3);
+  }
+}
+
 /* Print styles */
 @media print {
   * {
@@ -154,5 +239,12 @@ body {
     color: black !important;
     box-shadow: none !important;
     text-shadow: none !important;
+  }
+  
+  /* Hide interactive elements when printing */
+  button,
+  nav,
+  .floating-button {
+    display: none !important;
   }
 }

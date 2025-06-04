@@ -14,7 +14,7 @@ const fadeInUp = keyframes`
 `
 
 const AboutContainer = styled.section<{ $isVisible: boolean; $parallaxOffset: number }>`
-  padding: ${theme.spacing['4xl']} ${theme.spacing.xl};
+  padding: ${theme.spacing['2xl']} ${theme.spacing.md};
   background: ${theme.colors.background.secondary};
   min-height: 80vh;
   display: flex;
@@ -24,15 +24,23 @@ const AboutContainer = styled.section<{ $isVisible: boolean; $parallaxOffset: nu
   transform: translateY(${props => props.$isVisible ? '0' : '50px'});
   transition: all 0.8s ease;
   
+  @media (min-width: ${theme.breakpoints.md}) {
+    padding: ${theme.spacing['4xl']} ${theme.spacing.xl};
+  }
+  
   &::before {
     content: '';
     position: absolute;
     top: 0;
     left: 0;
     right: 0;
-    height: 100px;
+    height: 50px;
     background: linear-gradient(180deg, transparent 0%, ${theme.colors.background.secondary} 100%);
     transform: translateY(${props => props.$parallaxOffset * 0.3}px);
+    
+    @media (min-width: ${theme.breakpoints.md}) {
+      height: 100px;
+    }
   }
 `
 
@@ -40,14 +48,15 @@ const Content = styled.div`
   max-width: 1200px;
   margin: 0 auto;
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 4rem;
+  grid-template-columns: 1fr;
+  gap: 2rem;
   align-items: center;
+  text-align: center;
   
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-    gap: 2rem;
-    text-align: center;
+  @media (min-width: ${theme.breakpoints.md}) {
+    grid-template-columns: 1fr 2fr;
+    gap: 4rem;
+    text-align: left;
   }
 `
 
@@ -55,101 +64,161 @@ const ImageSection = styled.div`
   display: flex;
   justify-content: center;
   animation: ${fadeInUp} 0.8s ease-out;
+  order: 1;
+  
+  @media (min-width: ${theme.breakpoints.md}) {
+    order: 0;
+  }
 `
 
 const ProfileImage = styled.div`
-  width: 300px;
-  height: 300px;
+  width: 200px;
+  height: 200px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #ff6b6b, #ee5a24);
+  background: ${theme.colors.background.gradient};
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 8rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+  font-size: 5rem;
+  box-shadow: ${theme.colors.shadow.lg};
   position: relative;
   
   &::after {
     content: '';
     position: absolute;
-    width: 320px;
-    height: 320px;
-    border: 3px solid #ff6b6b;
+    width: 220px;
+    height: 220px;
+    border: 3px solid ${theme.colors.secondary};
     border-radius: 50%;
     top: -10px;
     left: -10px;
     opacity: 0.3;
   }
   
-  @media (max-width: 768px) {
-    width: 200px;
-    height: 200px;
-    font-size: 5rem;
+  @media (min-width: ${theme.breakpoints.sm}) {
+    width: 250px;
+    height: 250px;
+    font-size: 6rem;
     
     &::after {
-      width: 220px;
-      height: 220px;
+      width: 270px;
+      height: 270px;
+    }
+  }
+  
+  @media (min-width: ${theme.breakpoints.md}) {
+    width: 300px;
+    height: 300px;
+    font-size: 8rem;
+    
+    &::after {
+      width: 320px;
+      height: 320px;
     }
   }
 `
 
 const TextSection = styled.div`
   animation: ${fadeInUp} 0.8s ease-out 0.2s both;
+  order: 2;
+  
+  @media (min-width: ${theme.breakpoints.md}) {
+    order: 0;
+  }
 `
 
 const Title = styled.h2`
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #2c3e50;
-  margin-bottom: 1.5rem;
+  font-family: ${theme.typography.fonts.heading};
+  font-size: ${theme.typography.sizes.xl};
+  font-weight: ${theme.typography.weights.bold};
+  color: ${theme.colors.text.primary};
+  margin-bottom: ${theme.spacing.md};
+  line-height: 1.2;
   
-  @media (max-width: 768px) {
-    font-size: 2rem;
+  @media (min-width: ${theme.breakpoints.sm}) {
+    font-size: ${theme.typography.sizes['2xl']};
+  }
+  
+  @media (min-width: ${theme.breakpoints.md}) {
+    font-size: ${theme.typography.sizes['3xl']};
+    margin-bottom: ${theme.spacing.lg};
   }
 `
 
 const Description = styled.p`
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: #555;
-  margin-bottom: 2rem;
+  font-size: ${theme.typography.sizes.sm};
+  line-height: ${theme.typography.lineHeights.relaxed};
+  color: ${theme.colors.text.secondary};
+  margin-bottom: ${theme.spacing.md};
+  
+  @media (min-width: ${theme.breakpoints.sm}) {
+    font-size: ${theme.typography.sizes.base};
+  }
+  
+  @media (min-width: ${theme.breakpoints.md}) {
+    font-size: ${theme.typography.sizes.lg};
+    margin-bottom: ${theme.spacing.xl};
+  }
 `
 
 const StatsContainer = styled.div`
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 2rem;
-  margin-top: 2rem;
+  grid-template-columns: 1fr;
+  gap: ${theme.spacing.md};
+  margin-top: ${theme.spacing.lg};
   
-  @media (max-width: 768px) {
-    gap: 1rem;
+  @media (min-width: ${theme.breakpoints.sm}) {
+    grid-template-columns: repeat(3, 1fr);
+    gap: ${theme.spacing.md};
+  }
+  
+  @media (min-width: ${theme.breakpoints.md}) {
+    gap: ${theme.spacing.xl};
+    margin-top: ${theme.spacing['2xl']};
   }
 `
 
 const StatCard = styled.div`
   text-align: center;
-  padding: 1.5rem;
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  padding: ${theme.spacing.md};
+  background: ${theme.colors.background.primary};
+  border-radius: ${theme.borderRadius.lg};
+  box-shadow: ${theme.colors.shadow.sm};
+  transition: ${theme.transitions.bounce};
+  border: 1px solid ${theme.colors.border.light};
   
-  &:hover {
-    transform: translateY(-5px);
+  @media (min-width: ${theme.breakpoints.md}) {
+    padding: ${theme.spacing.lg};
+    border-radius: ${theme.borderRadius.xl};
+    box-shadow: ${theme.colors.shadow.md};
+    
+    &:hover {
+      transform: translateY(-5px);
+      box-shadow: ${theme.colors.shadow.lg};
+    }
   }
 `
 
 const StatNumber = styled.div`
-  font-size: 2rem;
-  font-weight: 800;
-  color: #d73027;
-  margin-bottom: 0.5rem;
+  font-size: ${theme.typography.sizes.xl};
+  font-weight: ${theme.typography.weights.extrabold};
+  color: ${theme.colors.primary};
+  margin-bottom: ${theme.spacing.xs};
+  
+  @media (min-width: ${theme.breakpoints.md}) {
+    font-size: ${theme.typography.sizes['3xl']};
+    margin-bottom: ${theme.spacing.sm};
+  }
 `
 
 const StatLabel = styled.div`
-  font-size: 0.9rem;
-  color: #666;
-  font-weight: 500;
+  font-size: ${theme.typography.sizes.xs};
+  color: ${theme.colors.text.light};
+  font-weight: ${theme.typography.weights.medium};
+  
+  @media (min-width: ${theme.breakpoints.md}) {
+    font-size: ${theme.typography.sizes.sm};
+  }
 `
 
 export const AboutSection: React.FC = () => {
@@ -174,32 +243,29 @@ export const AboutSection: React.FC = () => {
           <Description>
             Meet Suu, the Korean globe-trotting pizza connoisseur who's made it her mission to find the perfect slice. 
             From hidden gems in Naples' narrow streets to innovative fusion spots in Tokyo, Suu rates every pizza 
-            with brutal honesty and infectious enthusiasm. Her reviews have helped thousands discover their new 
-            favorite pizza spots across the world.
+            with brutal honesty and infectious enthusiasm.
           </Description>
           <Description>
             Born and raised in Seoul, Suu grew up with a palate trained on kimchi and bulgogi, which gave her 
             a unique appreciation for bold flavors and fermented goodness. She jokes that her love for pizza 
-            started as a quest to find something as satisfying as kimchi jjigae - and surprisingly, 
-            a good margherita comes pretty close! 🥢➡️🍕
+            started as a quest to find something as satisfying as kimchi jjigae! 🥢➡️🍕
           </Description>
           <Description>
             With a passport full of stamps and a stomach full of amazing memories, Suu brings you authentic, 
-            unbiased reviews that go beyond just taste. She explores the culture, the people, and the stories 
-            behind every slice - always with a side of Korean humor and maybe some gochujang recommendations.
+            unbiased reviews that go beyond just taste - always with a side of Korean humor.
           </Description>
           <StatsContainer>
             <StatCard>
-              <StatNumber>500+</StatNumber>
+              <StatNumber>12+</StatNumber>
               <StatLabel>Places Reviewed</StatLabel>
             </StatCard>
             <StatCard>
-              <StatNumber>50+</StatNumber>
+              <StatNumber>10+</StatNumber>
               <StatLabel>Countries Explored</StatLabel>
             </StatCard>
             <StatCard>
-              <StatNumber>100K+</StatNumber>
-              <StatLabel>Happy Pizza Lovers</StatLabel>
+              <StatNumber>∞</StatNumber>
+              <StatLabel>Pizza Dreams</StatLabel>
             </StatCard>
           </StatsContainer>
         </TextSection>
