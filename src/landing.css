@@ -7,12 +7,38 @@
 }
 body {
   margin: 0;
+  scroll-behavior: smooth;
   font-family: system-ui, sans-serif;
   line-height: 1.5;
+}
+nav {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background: rgba(0,0,0,0.6);
+  color: #fff;
+  z-index: 10;
+}
+nav a {
+  color: #fff;
+  margin-left: 1rem;
+  text-decoration: none;
+}
+nav a:hover {
+  text-decoration: underline;
+}
+body {
+  scroll-behavior: smooth;
 }
 .hero {
   min-height: 100vh;
   background: url('https://images.unsplash.com/photo-1601924638867-3ec62b7e0844?auto=format&fit=crop&w=1350&q=80') center/cover fixed;
+  padding-top: 60px;
   display: flex;
   align-items: center;
   justify-content: center;
