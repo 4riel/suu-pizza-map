@@ -5,8 +5,8 @@ import LandingPage from './components/LandingPage'
 import { places } from './data/places'
 import { MapView } from './components/MapView'
 import { Sidebar } from './components/Sidebar'
-const theme = createTheme()
-    return <LandingPage onExplore={() => setShowMap(true)} />
+`;
+const theme = createTheme();
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Container>
