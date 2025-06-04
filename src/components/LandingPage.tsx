@@ -37,15 +37,15 @@ export const LandingPage: React.FC<LandingPageProps> = ({ onExplore }) => {
           component="h1"
           sx={{ mb: 2, fontWeight: 600, animation: `${fadeIn} 0.6s ease-out both` }}
         >
-          Suu's Global Pizza Journey
+          Suu's Quest for the World's Best Pizza
         </Typography>
         <Typography
           variant="h6"
           component="p"
           sx={{ mb: 4, animation: `${fadeIn} 0.8s ease-out both` }}
         >
-          Follow Suu as she scours the world tasting slice after slice in search
-          of the perfect pizza.
+          Follow Suu as she journeys across the globe tasting slice after slice
+          in search of the planet's finest pizza.
         </Typography>
         <Button
           variant="contained"

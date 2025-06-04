@@ -6,7 +6,19 @@ import { places } from './data/places'
 import { MapView } from './components/MapView'
 import { Sidebar } from './components/Sidebar'
 `;
-const theme = createTheme();
+const theme = createTheme({
+  typography: {
+    fontFamily: "'Poppins', sans-serif",
+  },
+  palette: {
+    primary: {
+      main: '#ff8a00',
+    },
+    secondary: {
+      main: '#e52e71',
+    },
+  },
+});
     <ThemeProvider theme={theme}>
       <CssBaseline />
       <Container>
