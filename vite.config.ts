@@ -1,6 +1,9 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 
+// allow overriding base path when building previews
+const base = process.env.BASE_PATH || '/suu-pizza-map/'
+
 // https://vite.dev/config/
 export default defineConfig({
   root: 'src',
@@ -9,5 +12,5 @@ export default defineConfig({
     emptyOutDir: true,
   },
   plugins: [react()],
-  base: '/suu-pizza-map/',
+  base,
 })
