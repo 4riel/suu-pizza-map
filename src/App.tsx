@@ -3,6 +3,8 @@ import styled, { keyframes } from 'styled-components'
 import { places } from './data/places'
 import { MapView } from './components/MapView'
 import { Sidebar } from './components/Sidebar'
+import { PlaceCard } from './components/PlaceCard'
+import { SuggestModal } from './components/SuggestModal'
 
 const Container = styled.div`
   display: flex;
@@ -66,7 +68,7 @@ const ExploreButton = styled.button`
 function App() {
   const [selectedId, setSelectedId] = useState<number | null>(null)
   const [filter, setFilter] = useState('')
-  const [showMap, setShowMap] = useState(false)
+  const [showSuggest, setShowSuggest] = useState(false)
 
   const handleSelect = (id: number) => {
     setSelectedId(id)
@@ -103,10 +105,18 @@ function App() {
         onSelect={handleSelect}
         filter={filter}
         onFilter={setFilter}
+        onSuggest={() => setShowSuggest(true)}
       />
       <div style={{ flex: 1 }}>
         <MapView places={list} selectedId={selectedId} onSelect={handleSelect} />
+        {selectedId && (
+          <PlaceCard
+            place={places.find((p) => p.id === selectedId)!}
+            onClose={() => setSelectedId(null)}
+          />
+        )}
       </div>
+      {showSuggest && <SuggestModal onClose={() => setShowSuggest(false)} />}
     </Container>
   )
 }

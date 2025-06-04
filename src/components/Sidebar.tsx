@@ -34,15 +34,27 @@ const SearchInput = styled.input`
   margin-bottom: 0.5rem;
 `
 
+const SuggestButton = styled.button`
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  background: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+`
+
 interface SidebarProps {
   places: Place[]
   selectedId: number | null
   onSelect: (id: number) => void
   filter: string
   onFilter: (val: string) => void
+  onSuggest: () => void
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ places, selectedId, onSelect, filter, onFilter }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ places, selectedId, onSelect, filter, onFilter, onSuggest }) => {
   const refs = useRef<Record<number, HTMLDivElement | null>>({})
   useEffect(() => {
     if (selectedId && refs.current[selectedId]) {
@@ -83,6 +95,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ places, selectedId, onSelect, 
           <small>{place.review}</small>
         </ListItem>
       ))}
+      <SuggestButton onClick={onSuggest}>Suggest a Spot for Suu</SuggestButton>
     </Wrapper>
   )
 }
