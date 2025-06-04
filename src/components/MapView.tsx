@@ -31,7 +31,11 @@ export const MapView: React.FC<MapViewProps> = ({ places, selectedId, onSelect }
   const selectedPlace = places.find((p) => p.id === selectedId)
   return (
     <MapContainer center={[20, 0] as L.LatLngExpression} zoom={2} style={{ height: '100%', width: '100%' }}>
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; OpenStreetMap contributors" />
+      {/* Use a tile provider with English labels */}
+      <TileLayer
+        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+        attribution="&copy; OpenStreetMap contributors &copy; CARTO"
+      />
       {places.map((place) => (
         <Marker
           key={place.id}
