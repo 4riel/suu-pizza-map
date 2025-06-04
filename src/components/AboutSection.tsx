@@ -153,17 +153,17 @@ const StatLabel = styled.div`
 `
 
 export const AboutSection: React.FC = () => {
-  const { isVisible, elementRef } = useScrollAnimation({ threshold: 0.3 })
-  const { offset: parallaxOffset, elementRef: parallaxRef } = useParallax(0.5)
+  const { isVisible, elementRef } = useScrollAnimation<HTMLElement>({ threshold: 0.3 })
+  const { offset: parallaxOffset, elementRef: parallaxRef } = useParallax<HTMLDivElement>(0.5)
 
   return (
-    <AboutContainer 
-      ref={elementRef as any} 
-      $isVisible={isVisible} 
-      $parallaxOffset={parallaxOffset}
-      id="about"
-    >
-      <Content ref={parallaxRef as any}>
+      <AboutContainer
+        ref={elementRef}
+        $isVisible={isVisible}
+        $parallaxOffset={parallaxOffset}
+        id="about"
+      >
+        <Content ref={parallaxRef}>
         <ImageSection>
           <ProfileImage>
             👩‍🍳

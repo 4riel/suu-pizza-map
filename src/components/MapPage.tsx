@@ -18,11 +18,18 @@ const fadeIn = keyframes`
 
 const Container = styled.div`
   display: flex;
-  height: 100vh;
+  height: calc(100vh - 80px);
+  @supports (height: 100dvh) {
+    height: calc(100dvh - 80px);
+  }
   padding-top: 80px;
   background: ${theme.colors.background.secondary};
   animation: ${fadeIn} 0.6s ease-out;
   position: relative;
+
+  @media (max-width: ${theme.breakpoints.md}) {
+    flex-direction: column;
+  }
   
   &::before {
     content: '';

@@ -158,10 +158,10 @@ const BackgroundShape = styled.div`
 `
 
 export const HeroSection: React.FC = () => {
-  const { offset: parallaxOffset, elementRef } = useParallax(0.3)
+  const { offset: parallaxOffset, elementRef } = useParallax<HTMLElement>(0.3)
 
   return (
-    <HeroContainer ref={elementRef as any} $parallaxOffset={parallaxOffset}>
+    <HeroContainer ref={elementRef} $parallaxOffset={parallaxOffset}>
       <BackgroundShape />
       <HeroContent>
         <TextContent>
