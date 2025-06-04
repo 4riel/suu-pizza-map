@@ -1,6 +1,6 @@
 import { useState } from "react";
 import styled from "styled-components";
-import { ThemeProvider, CssBaseline, createTheme } from "@mui/material";
+import { ThemeProvider, CssBaseline, createTheme, Fade } from "@mui/material";
 import LandingPage from "./components/LandingPage";
 import { places } from "./data/places";
 import { MapView } from "./components/MapView";
@@ -27,23 +27,26 @@ const theme = createTheme({
       p.city.toLowerCase().includes(filter.toLowerCase()),
   );
   const list = filter ? filteredPlaces : places;
-    return <LandingPage onExplore={() => setShowMap(true)} />;
-      <AppContainer>
-          <MapView
-            places={list}
-            selectedId={selectedId}
-            onSelect={handleSelect}
-          />
+      <Fade in={!showMap} timeout={500} unmountOnExit>
+        <div>
+          <LandingPage onExplore={() => setShowMap(true)} />
         </div>
-      </AppContainer>
-    </ThemeProvider>
-  );
-
-export default App;
-
-  if (!showMap) {
-    return (
-      <LandingContainer>
+      </Fade>
+      <Fade in={showMap} timeout={500} unmountOnExit>
+        <AppContainer>
+          <Sidebar
+            places={places}
+            filter={filter}
+            onFilter={setFilter}
+          <div style={{ flex: 1 }}>
+            <MapView
+              places={list}
+              selectedId={selectedId}
+              onSelect={handleSelect}
+            />
+          </div>
+        </AppContainer>
+      </Fade>
         <Title>Suu's Global Pizza Journey</Title>
         <Subtitle>
           Join Suu as she travels the globe, tasting countless slices in search
