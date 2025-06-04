@@ -15,16 +15,20 @@ const slideIn = keyframes`
 `
 
 const Container = styled.div`
-  width: 320px;
+  width: 100%;
   background: ${theme.colors.background.primary};
-  border-right: 1px solid ${theme.colors.border.light};
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
   position: relative;
-  box-shadow: ${theme.colors.shadow.md};
   animation: ${slideIn} 0.6s ease-out;
+  
+  @media (min-width: ${theme.breakpoints.md}) {
+    width: 400px;
+    border-right: 1px solid ${theme.colors.border.light};
+    box-shadow: ${theme.colors.shadow.md};
+  }
   
   &::before {
     content: '';
@@ -36,39 +40,45 @@ const Container = styled.div`
     background: ${theme.colors.background.gradient};
     z-index: 10;
   }
-  
-  @media (max-width: ${theme.breakpoints.md}) {
-    width: 100%;
-    height: 200px;
-    border-right: none;
-    border-bottom: 1px solid ${theme.colors.border.light};
-    animation: none;
-  }
 `
 
 const Header = styled.div`
-  padding: ${theme.spacing.xl} ${theme.spacing.lg} ${theme.spacing.lg};
+  padding: ${theme.spacing.md};
   background: ${theme.colors.background.primary};
   border-bottom: 1px solid ${theme.colors.border.light};
   position: sticky;
   top: 0;
   z-index: 5;
+  
+  @media (min-width: ${theme.breakpoints.md}) {
+    padding: ${theme.spacing.xl} ${theme.spacing.lg} ${theme.spacing.lg};
+  }
 `
 
 const Title = styled.h2`
   font-family: ${theme.typography.fonts.heading};
-  font-size: ${theme.typography.sizes['2xl']};
+  font-size: ${theme.typography.sizes.lg};
   font-weight: ${theme.typography.weights.bold};
   color: ${theme.colors.primary};
-  margin: 0 0 ${theme.spacing.md} 0;
+  margin: 0 0 ${theme.spacing.sm} 0;
   display: flex;
   align-items: center;
-  gap: ${theme.spacing.sm};
+  gap: ${theme.spacing.xs};
+  
+  @media (min-width: ${theme.breakpoints.md}) {
+    font-size: ${theme.typography.sizes['2xl']};
+    margin: 0 0 ${theme.spacing.md} 0;
+    gap: ${theme.spacing.sm};
+  }
 `
 
 const PizzaIcon = styled.span`
-  font-size: ${theme.typography.sizes['3xl']};
+  font-size: ${theme.typography.sizes.xl};
   animation: spin 8s linear infinite;
+  
+  @media (min-width: ${theme.breakpoints.md}) {
+    font-size: ${theme.typography.sizes['3xl']};
+  }
   
   @keyframes spin {
     from { transform: rotate(0deg); }
@@ -78,19 +88,29 @@ const PizzaIcon = styled.span`
 
 const SearchContainer = styled.div`
   position: relative;
-  margin-bottom: ${theme.spacing.md};
+  margin-bottom: ${theme.spacing.sm};
+  
+  @media (min-width: ${theme.breakpoints.md}) {
+    margin-bottom: ${theme.spacing.md};
+  }
 `
 
 const SearchInput = styled.input`
   width: 100%;
-  padding: ${theme.spacing.md} ${theme.spacing.md} ${theme.spacing.md} 3rem;
+  padding: ${theme.spacing.sm} ${theme.spacing.sm} ${theme.spacing.sm} 2.5rem;
   border: 2px solid ${theme.colors.border.light};
-  border-radius: ${theme.borderRadius.xl};
-  font-size: ${theme.typography.sizes.base};
+  border-radius: ${theme.borderRadius.lg};
+  font-size: ${theme.typography.sizes.sm};
   transition: ${theme.transitions.normal};
   background: ${theme.colors.background.secondary};
   color: ${theme.colors.text.primary};
   box-sizing: border-box;
+  
+  @media (min-width: ${theme.breakpoints.md}) {
+    padding: ${theme.spacing.md} ${theme.spacing.md} ${theme.spacing.md} 3rem;
+    border-radius: ${theme.borderRadius.xl};
+    font-size: ${theme.typography.sizes.base};
+  }
   
   &:focus {
     outline: none;
@@ -106,21 +126,34 @@ const SearchInput = styled.input`
 
 const SearchIcon = styled.div`
   position: absolute;
-  left: ${theme.spacing.md};
+  left: ${theme.spacing.sm};
   top: 50%;
   transform: translateY(-50%);
   color: ${theme.colors.text.light};
-  font-size: ${theme.typography.sizes.lg};
+  font-size: ${theme.typography.sizes.base};
+  
+  @media (min-width: ${theme.breakpoints.md}) {
+    left: ${theme.spacing.md};
+    font-size: ${theme.typography.sizes.lg};
+  }
 `
 
 const PlacesList = styled.div`
   flex: 1;
   overflow-y: auto;
-  padding: 0 ${theme.spacing.lg} ${theme.spacing.lg};
+  padding: 0 ${theme.spacing.md} ${theme.spacing.md};
+  
+  @media (min-width: ${theme.breakpoints.md}) {
+    padding: 0 ${theme.spacing.lg} ${theme.spacing.lg};
+  }
   
   /* Custom scrollbar */
   &::-webkit-scrollbar {
-    width: 6px;
+    width: 4px;
+    
+    @media (min-width: ${theme.breakpoints.md}) {
+      width: 6px;
+    }
   }
   
   &::-webkit-scrollbar-track {
@@ -140,54 +173,86 @@ const PlacesList = styled.div`
 const PlaceCard = styled.div<{ $isActive: boolean; $index: number }>`
   background: ${props => props.$isActive ? theme.colors.primaryLight : theme.colors.background.primary};
   border: 2px solid ${props => props.$isActive ? theme.colors.primary : theme.colors.border.light};
-  border-radius: ${theme.borderRadius.lg};
-  padding: ${theme.spacing.lg};
-  margin-bottom: ${theme.spacing.md};
+  border-radius: ${theme.borderRadius.md};
+  padding: ${theme.spacing.md};
+  margin-bottom: ${theme.spacing.sm};
   cursor: pointer;
   transition: ${theme.transitions.bounce};
   box-shadow: ${theme.colors.shadow.sm};
   animation: ${slideIn} 0.4s ease-out ${props => props.$index * 0.05}s both;
+  min-height: 44px; /* Minimum touch target for mobile */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   
-  &:hover {
-    transform: translateX(8px) translateY(-2px);
-    box-shadow: ${theme.colors.shadow.lg};
-    border-color: ${theme.colors.primary};
-    background: ${props => props.$isActive ? theme.colors.primaryLight : theme.colors.background.secondary};
+  @media (min-width: ${theme.breakpoints.md}) {
+    border-radius: ${theme.borderRadius.lg};
+    padding: ${theme.spacing.lg};
+    margin-bottom: ${theme.spacing.md};
+    min-height: auto;
+    
+    &:hover {
+      transform: translateX(8px) translateY(-2px);
+      box-shadow: ${theme.colors.shadow.lg};
+      border-color: ${theme.colors.primary};
+      background: ${props => props.$isActive ? theme.colors.primaryLight : theme.colors.background.secondary};
+    }
   }
   
   &:active {
-    transform: translateX(4px) scale(0.98);
+    transform: scale(0.98);
+    
+    @media (min-width: ${theme.breakpoints.md}) {
+      transform: translateX(4px) scale(0.98);
+    }
   }
 `
 
 const PlaceName = styled.h3`
   font-family: ${theme.typography.fonts.heading};
-  font-size: ${theme.typography.sizes.lg};
+  font-size: ${theme.typography.sizes.base};
   font-weight: ${theme.typography.weights.semibold};
   color: ${theme.colors.text.primary};
   margin: 0 0 ${theme.spacing.xs} 0;
   display: flex;
   align-items: center;
-  gap: ${theme.spacing.sm};
+  gap: ${theme.spacing.xs};
+  
+  @media (min-width: ${theme.breakpoints.md}) {
+    font-size: ${theme.typography.sizes.lg};
+    gap: ${theme.spacing.sm};
+  }
 `
 
 const PlaceLocation = styled.p`
   color: ${theme.colors.text.secondary};
-  font-size: ${theme.typography.sizes.sm};
+  font-size: ${theme.typography.sizes.xs};
   margin: 0 0 ${theme.spacing.xs} 0;
   font-weight: ${theme.typography.weights.medium};
+  
+  @media (min-width: ${theme.breakpoints.md}) {
+    font-size: ${theme.typography.sizes.sm};
+  }
 `
 
 const PlaceRating = styled.div`
   display: flex;
   align-items: center;
   gap: ${theme.spacing.xs};
-  margin-bottom: ${theme.spacing.sm};
+  margin-bottom: ${theme.spacing.xs};
+  
+  @media (min-width: ${theme.breakpoints.md}) {
+    margin-bottom: ${theme.spacing.sm};
+  }
 `
 
 const Stars = styled.span`
   color: ${theme.colors.accent};
-  font-size: ${theme.typography.sizes.sm};
+  font-size: ${theme.typography.sizes.xs};
+  
+  @media (min-width: ${theme.breakpoints.md}) {
+    font-size: ${theme.typography.sizes.sm};
+  }
 `
 
 const RatingText = styled.span`
@@ -198,54 +263,39 @@ const RatingText = styled.span`
 
 const PlaceReview = styled.p`
   color: ${theme.colors.text.secondary};
-  font-size: ${theme.typography.sizes.sm};
+  font-size: ${theme.typography.sizes.xs};
   line-height: ${theme.typography.lineHeights.relaxed};
   margin: 0;
   display: -webkit-box;
-  -webkit-line-clamp: 2;
+  -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
-`
-
-const SuggestButton = styled.button`
-  width: calc(100% - ${theme.spacing.xl});
-  margin: 0 ${theme.spacing.lg} ${theme.spacing.lg};
-  padding: ${theme.spacing.md} ${theme.spacing.lg};
-  background: ${theme.colors.background.gradient};
-  color: ${theme.colors.text.white};
-  border: none;
-  border-radius: ${theme.borderRadius.xl};
-  font-family: ${theme.typography.fonts.heading};
-  font-size: ${theme.typography.sizes.base};
-  font-weight: ${theme.typography.weights.semibold};
-  cursor: pointer;
-  transition: ${theme.transitions.bounce};
-  box-shadow: ${theme.colors.shadow.md};
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: ${theme.spacing.sm};
   
-  &:hover {
-    transform: translateY(-2px) scale(1.02);
-    box-shadow: ${theme.colors.shadow.xl};
-  }
-  
-  &:active {
-    transform: translateY(0) scale(0.98);
+  @media (min-width: ${theme.breakpoints.md}) {
+    font-size: ${theme.typography.sizes.sm};
+    -webkit-line-clamp: 2;
   }
 `
 
 const EmptyState = styled.div`
   text-align: center;
-  padding: ${theme.spacing['3xl']} ${theme.spacing.lg};
+  padding: ${theme.spacing.xl} ${theme.spacing.md};
   color: ${theme.colors.text.light};
+  
+  @media (min-width: ${theme.breakpoints.md}) {
+    padding: ${theme.spacing['3xl']} ${theme.spacing.lg};
+  }
 `
 
 const EmptyIcon = styled.div`
-  font-size: ${theme.typography.sizes['5xl']};
-  margin-bottom: ${theme.spacing.md};
+  font-size: ${theme.typography.sizes['3xl']};
+  margin-bottom: ${theme.spacing.sm};
   opacity: 0.5;
+  
+  @media (min-width: ${theme.breakpoints.md}) {
+    font-size: ${theme.typography.sizes['5xl']};
+    margin-bottom: ${theme.spacing.md};
+  }
 `
 
 interface SidebarProps {
@@ -254,7 +304,6 @@ interface SidebarProps {
   onSelect: (id: number) => void
   filter: string
   onFilter: (val: string) => void
-  onSuggest: () => void
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ 
@@ -262,8 +311,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
   selectedId, 
   onSelect, 
   filter, 
-  onFilter, 
-  onSuggest 
+  onFilter
 }) => {
   const refs = useRef<Record<number, HTMLDivElement | null>>({})
 
@@ -298,7 +346,7 @@ export const Sidebar: React.FC<SidebarProps> = ({
           <SearchIcon>🔍</SearchIcon>
           <SearchInput
             type="text"
-            placeholder="Search places, cities, countries..."
+            placeholder="Search places, cities..."
             value={filter}
             onChange={(e: React.ChangeEvent<HTMLInputElement>) => onFilter(e.target.value)}
           />
@@ -339,10 +387,6 @@ export const Sidebar: React.FC<SidebarProps> = ({
           ))
         )}
       </PlacesList>
-
-      <SuggestButton onClick={onSuggest}>
-        ✨ Suggest a Spot for Suu
-      </SuggestButton>
     </Container>
   )
 }
