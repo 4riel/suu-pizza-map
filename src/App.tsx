@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import { places } from './data/places'
 import { MapView } from './components/MapView'
 import { Sidebar } from './components/Sidebar'
+import { PlaceModal } from './components/PlaceModal'
 
 const Container = styled.div`
   display: flex;
@@ -24,6 +25,7 @@ function App() {
   )
 
   const list = filter ? filteredPlaces : places
+  const selectedPlace = places.find((p) => p.id === selectedId) || null
 
   return (
     <Container>
@@ -37,6 +39,12 @@ function App() {
       <div style={{ flex: 1 }}>
         <MapView places={list} selectedId={selectedId} onSelect={handleSelect} />
       </div>
+      {selectedPlace && (
+        <PlaceModal
+          place={selectedPlace}
+          onClose={() => setSelectedId(null)}
+        />
+      )}
     </Container>
   )
 }
