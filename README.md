@@ -6,6 +6,7 @@ A minimal React + Leaflet map showing pizza spots around the world.
 
 ## Development
 
+
 1. Install dependencies
 
    ```bash
