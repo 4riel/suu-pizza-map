@@ -68,6 +68,7 @@ const ExploreButton = styled.button`
 function App() {
   const [selectedId, setSelectedId] = useState<number | null>(null)
   const [filter, setFilter] = useState('')
+  const [showMap, setShowMap] = useState(false)
   const [showSuggest, setShowSuggest] = useState(false)
 
   const handleSelect = (id: number) => {
