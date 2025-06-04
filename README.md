@@ -34,23 +34,15 @@ Follow these steps to publish the site:
 
    Ensure `vite.config.ts` sets `base: '/suu-pizza-map/'`.
 
-3. **Install dependencies**
+3. **Enable GitHub Pages**
 
-   ```bash
-   npm install
-   ```
+   In your repository settings under **Pages**, choose the `gh-pages` branch.
 
 4. **Deploy**
 
-   ```bash
-   npm run deploy
-   ```
-
-   This builds the project and pushes `dist` to the `gh-pages` branch.
-
-5. **Enable GitHub Pages**
-
-   In your repository settings under **Pages**, choose the `gh-pages` branch.
+   Push or merge to the `main` branch. The **Deploy to GitHub Pages** workflow will
+   build the project and publish `dist` to `gh-pages`. You can also trigger the
+   workflow manually or run `npm run deploy` locally.
 
 Once the GitHub Pages build completes, visit:
 
