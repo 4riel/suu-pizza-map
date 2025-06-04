@@ -1,4 +1,4 @@
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet'
+import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import * as L from 'leaflet'
 import type { Place } from '../data/places'
@@ -54,13 +54,7 @@ export const MapView: React.FC<MapViewProps> = ({ places, selectedId, onSelect }
           position={[place.lat, place.lng] as L.LatLngExpression}
           icon={getIcon(place.id)}
           eventHandlers={{ click: () => onSelect(place.id) }}
-        >
-          <Popup>
-            <strong>{place.name}</strong>
-            <br />
-            {place.city}, {place.country}
-          </Popup>
-        </Marker>
+        ></Marker>
       ))}
       {selectedPlace && <FlyToMarker position={[selectedPlace.lat, selectedPlace.lng]} />}
     </MapContainer>
