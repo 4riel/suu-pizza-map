@@ -1,8 +1,7 @@
 import styled, { keyframes } from 'styled-components'
 import type { Place } from '../data/places'
 import { theme } from '../styles/theme'
-import { useScrollAnimation } from '../hooks/useScrollAnimation'
-import { useRef, useEffect, useState } from 'react'
+import { useRef, useEffect } from 'react'
 
 const slideIn = keyframes`
   from {
@@ -267,10 +266,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onSuggest 
 }) => {
   const refs = useRef<Record<number, HTMLDivElement | null>>({})
-  const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
-    setIsVisible(true)
     if (selectedId && refs.current[selectedId]) {
       refs.current[selectedId]!.scrollIntoView({ 
         behavior: 'smooth', 

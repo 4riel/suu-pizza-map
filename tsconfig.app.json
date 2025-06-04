@@ -21,6 +21,7 @@
     "noUnusedParameters": true,
     "isolatedModules": true,
     "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true
   },
