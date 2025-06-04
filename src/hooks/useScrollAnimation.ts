@@ -6,10 +6,12 @@ interface UseScrollAnimationOptions {
   triggerOnce?: boolean
 }
 
-export const useScrollAnimation = (options: UseScrollAnimationOptions = {}) => {
+export const useScrollAnimation = <T extends HTMLElement = HTMLElement>(
+  options: UseScrollAnimationOptions = {}
+) => {
   const { threshold = 0.1, rootMargin = '0px', triggerOnce = true } = options
   const [isVisible, setIsVisible] = useState(false)
-  const elementRef = useRef<HTMLElement>(null)
+  const elementRef = useRef<T | null>(null)
 
   useEffect(() => {
     const element = elementRef.current
@@ -39,9 +41,11 @@ export const useScrollAnimation = (options: UseScrollAnimationOptions = {}) => {
   return { isVisible, elementRef }
 }
 
-export const useParallax = (speed: number = 0.5) => {
+export const useParallax = <T extends HTMLElement = HTMLElement>(
+  speed: number = 0.5
+) => {
   const [offset, setOffset] = useState(0)
-  const elementRef = useRef<HTMLElement>(null)
+  const elementRef = useRef<T | null>(null)
 
   useEffect(() => {
     const handleScroll = () => {
