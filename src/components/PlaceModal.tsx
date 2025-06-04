@@ -47,18 +47,18 @@ const Overlay = styled.div`
 
 const ModalBox = styled.div`
   background: ${theme.colors.background.primary};
-  border-radius: ${theme.borderRadius.lg};
+  border-radius: ${theme.borderRadius.md};
   padding: ${theme.spacing.sm};
   width: 100%;
-  max-width: 420px;
-  max-height: 90vh;
+  max-width: 340px;
+  max-height: 75vh;
   overflow-y: auto;
   box-shadow: ${theme.colors.shadow.xl};
   text-align: left;
   position: relative;
   animation: ${slideInUp} 0.4s ease-out;
   border: 1px solid ${theme.colors.border.light};
-  margin: ${theme.spacing.sm} 0;
+  margin: ${theme.spacing.xs} 0;
   
   @media (min-width: ${theme.breakpoints.md}) {
     border-radius: ${theme.borderRadius.xl};
@@ -122,10 +122,10 @@ const CloseButton = styled.button`
 
 const Image = styled.img`
   width: 100%;
-  height: 150px;
+  height: 120px;
   object-fit: cover;
   border-radius: ${theme.borderRadius.md};
-  margin-bottom: ${theme.spacing.md};
+  margin-bottom: ${theme.spacing.sm};
   box-shadow: ${theme.colors.shadow.md};
   
   @media (min-width: ${theme.breakpoints.md}) {
@@ -137,7 +137,7 @@ const Image = styled.img`
 
 const PlaceName = styled.h2`
   font-family: ${theme.typography.fonts.heading};
-  font-size: ${theme.typography.sizes.xl};
+  font-size: ${theme.typography.sizes.lg};
   font-weight: ${theme.typography.weights.bold};
   color: ${theme.colors.text.primary};
   margin: 0 0 ${theme.spacing.xs} 0;

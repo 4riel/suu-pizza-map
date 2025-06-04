@@ -53,9 +53,9 @@ const FloatingButtonsContainer = styled.div`
   display: flex;
   flex-direction: column;
   gap: ${theme.spacing.sm};
-  z-index: ${theme.zIndex.dropdown + 1};
+  z-index: 1200;
   
-  @media (min-width: ${theme.breakpoints.md}) {
+  @media (min-width: 768px) {
     display: none;
   }
 `
@@ -102,9 +102,9 @@ const SuggestFloatingButton = styled.button`
   box-shadow: ${theme.colors.shadow.lg};
   cursor: pointer;
   transition: ${theme.transitions.bounce};
-  z-index: ${theme.zIndex.dropdown + 1};
+  z-index: 1200;
   
-  @media (min-width: ${theme.breakpoints.md}) {
+  @media (min-width: 768px) {
     display: none;
   }
   
@@ -278,7 +278,6 @@ export const MapPage: React.FC = () => {
           onSelect={handleSelect}
           filter={filter}
           onFilter={setFilter}
-          onSuggest={() => setShowSuggest(true)}
         />
       </SidebarContainer>
       
