@@ -20,14 +20,31 @@ Suu Pizza Map is a simple React application showing pizza spots that Suu has vis
 
 ## Deployment to GitHub Pages
 
-1. The `homepage` field in `package.json` is already set to `https://4riel.github.io/suu-pizza-map`. Ensure the `base` option in `vite.config.ts` matches the repository name (`/suu-pizza-map/`).
-2. Build and deploy:
+Follow these steps to publish the site:
 
-   ```bash
-   npm run deploy
+1. **Set the `homepage`**
+
+   The `homepage` field in `package.json` should be:
+
+   ```json
+   "homepage": "https://4riel.github.io/suu-pizza-map"
    ```
 
-This will build the project and push the `dist` folder to the `gh-pages` branch so it can be served with GitHub Pages. Once deployed, visit:
+2. **Verify the Vite base path**
+
+   Ensure `vite.config.ts` sets `base: '/suu-pizza-map/'`.
+
+3. **Enable GitHub Pages**
+
+   In your repository settings under **Pages**, choose the `gh-pages` branch.
+
+4. **Deploy**
+
+   Push or merge to the `main` branch. The **Deploy to GitHub Pages** workflow will
+   build the project and publish `dist` to `gh-pages`. You can also trigger the
+   workflow manually or run `npm run deploy` locally.
+
+Once the GitHub Pages build completes, visit:
 
 ```
 https://4riel.github.io/suu-pizza-map/
