@@ -37,11 +37,13 @@ const Overlay = styled.div`
   animation: ${fadeIn} 0.3s ease-out;
   backdrop-filter: blur(8px);
   padding: ${theme.spacing.sm};
+  padding-top: 80px; /* Account for navbar height on mobile */
   overflow-y: auto;
   
   @media (min-width: ${theme.breakpoints.md}) {
     align-items: center;
     padding: ${theme.spacing.md};
+    padding-top: 100px; /* Account for navbar height on desktop */
   }
 `
 
@@ -155,8 +157,8 @@ const PlaceName = styled.h2`
 
 const Location = styled.p`
   color: ${theme.colors.text.secondary};
-  font-size: ${theme.typography.sizes.base};
-  margin: 0 0 ${theme.spacing.md} 0;
+  font-size: ${theme.typography.sizes.sm};
+  margin: 0 0 ${theme.spacing.sm} 0;
   font-weight: ${theme.typography.weights.medium};
   display: flex;
   align-items: center;

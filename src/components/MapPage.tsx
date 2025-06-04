@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import styled, { keyframes } from 'styled-components'
 import { places } from '../data/places'
 import { MapView } from './MapView'
@@ -46,14 +46,15 @@ const Container = styled.div`
   }
 `
 
-const FloatingButtonsContainer = styled.div`
+const FloatingButtonsContainer = styled.div<{ $hidden?: boolean }>`
   position: fixed;
   bottom: 20px;
   left: 20px;
-  display: flex;
+  display: ${props => props.$hidden ? 'none' : 'flex'};
   flex-direction: column;
   gap: ${theme.spacing.sm};
   z-index: 1200;
+  transition: ${theme.transitions.fast};
   
   @media (min-width: 768px) {
     display: none;
@@ -85,7 +86,7 @@ const FloatingButton = styled.button<{ $variant?: 'primary' | 'secondary' }>`
   }
 `
 
-const SuggestFloatingButton = styled.button`
+const SuggestFloatingButton = styled.button<{ $hidden?: boolean }>`
   position: fixed;
   bottom: 20px;
   right: 20px;
@@ -95,7 +96,7 @@ const SuggestFloatingButton = styled.button`
   border-radius: ${theme.borderRadius.full};
   width: 56px;
   height: 56px;
-  display: flex;
+  display: ${props => props.$hidden ? 'none' : 'flex'};
   align-items: center;
   justify-content: center;
   font-size: 1.4rem;
@@ -119,52 +120,43 @@ const SuggestFloatingButton = styled.button`
 `
 
 const SidebarContainer = styled.div<{ $isOpen: boolean }>`
-  @media (max-width: ${theme.breakpoints.md}) {
+  @media (max-width: 767px) {
     position: fixed;
     top: 64px;
     left: 0;
+    right: 0;
     bottom: 0;
     width: 100%;
-    max-width: 380px;
     z-index: ${theme.zIndex.dropdown};
     transform: translateX(${props => props.$isOpen ? '0' : '-100%'});
     transition: transform 0.3s ease;
     background: ${theme.colors.background.primary};
-    box-shadow: ${theme.colors.shadow.xl};
+    overflow: hidden;
   }
   
-  @media (min-width: ${theme.breakpoints.md}) {
+  @media (min-width: 768px) {
     flex: 0 0 400px;
     position: relative;
     transform: none;
   }
 `
 
-const SidebarOverlay = styled.div<{ $isOpen: boolean }>`
-  display: none;
+const MapContainer = styled.div<{ $hidden?: boolean }>`
+  flex: 1;
+  position: relative;
+  overflow: hidden;
   
-  @media (max-width: ${theme.breakpoints.md}) {
-    display: block;
+  @media (max-width: 767px) {
     position: fixed;
     top: 64px;
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
-    opacity: ${props => props.$isOpen ? 1 : 0};
-    visibility: ${props => props.$isOpen ? 'visible' : 'hidden'};
-    transition: all 0.3s ease;
-    z-index: ${theme.zIndex.dropdown - 1};
+    transform: translateX(${props => props.$hidden ? '100%' : '0'});
+    transition: transform 0.3s ease;
   }
-`
-
-const MapContainer = styled.div`
-  flex: 1;
-  position: relative;
-  overflow: hidden;
-  height: 50vh;
   
-  @media (min-width: ${theme.breakpoints.md}) {
+  @media (min-width: 768px) {
     height: auto;
     border-radius: 0 0 0 ${theme.borderRadius.xl};
     box-shadow: ${theme.colors.shadow.lg};
@@ -185,7 +177,7 @@ const MapContainer = styled.div`
     z-index: 1;
   }
   
-  @media (min-width: ${theme.breakpoints.md}) {
+  @media (min-width: 768px) {
     &:hover::after {
       opacity: 0.05;
     }
@@ -208,10 +200,6 @@ export const MapPage: React.FC = () => {
 
   const toggleSidebar = () => {
     setIsSidebarOpen(!isSidebarOpen)
-  }
-
-  const closeSidebar = () => {
-    setIsSidebarOpen(false)
   }
 
   const handleCurrentLocation = () => {
@@ -248,10 +236,13 @@ export const MapPage: React.FC = () => {
 
   const list = filter ? filteredPlaces : places
   const selectedPlace = places.find((p) => p.id === selectedId) || null
+  
+  // Hide floating buttons when any modal is open
+  const hasModalOpen = selectedPlace !== null || showSuggest
 
   return (
     <Container>
-      <FloatingButtonsContainer>
+      <FloatingButtonsContainer $hidden={hasModalOpen}>
         <FloatingButton onClick={toggleSidebar} aria-label="Toggle pizza places list">
           {isSidebarOpen ? '✕' : '🍕'}
         </FloatingButton>
@@ -265,6 +256,7 @@ export const MapPage: React.FC = () => {
       </FloatingButtonsContainer>
       
       <SuggestFloatingButton 
+        $hidden={hasModalOpen}
         onClick={() => setShowSuggest(true)} 
         aria-label="Suggest a pizza place"
       >
@@ -281,9 +273,7 @@ export const MapPage: React.FC = () => {
         />
       </SidebarContainer>
       
-      <SidebarOverlay $isOpen={isSidebarOpen} onClick={closeSidebar} />
-      
-      <MapContainer>
+      <MapContainer $hidden={isSidebarOpen}>
         <MapView places={list} selectedId={selectedId} onSelect={handleSelect} />
       </MapContainer>
       
