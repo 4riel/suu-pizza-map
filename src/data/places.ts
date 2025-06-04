@@ -1,3 +1,4 @@
+
 export interface Place {
   id: number
   name: string
@@ -20,7 +21,8 @@ export const places: Place[] = [
     lng: 98.9853,
     review: 'Cozy spot with thin crust perfection.',
     rating: 4,
-    image: 'https://picsum.photos/seed/pizza1/400/300',
+    image:
+      'https://source.unsplash.com/400x300/?italian-restaurant&sig=1',
   },
   {
     id: 2,
@@ -31,7 +33,8 @@ export const places: Place[] = [
     lng: 126.9780,
     review: 'Creative toppings and great atmosphere.',
     rating: 5,
-    image: 'https://picsum.photos/seed/pizza2/400/300',
+    image:
+      'https://source.unsplash.com/400x300/?italian-restaurant&sig=2',
   },
   {
     id: 3,
@@ -42,7 +45,8 @@ export const places: Place[] = [
     lng: 14.2681,
     review: 'Authentic Neapolitan pies straight from the oven.',
     rating: 5,
-    image: 'https://picsum.photos/seed/pizza3/400/300',
+    image:
+      'https://source.unsplash.com/400x300/?italian-restaurant&sig=3',
   },
   {
     id: 4,
@@ -53,7 +57,8 @@ export const places: Place[] = [
     lng: 139.6917,
     review: 'Fusion-style slices with a local twist.',
     rating: 4,
-    image: 'https://picsum.photos/seed/pizza4/400/300',
+    image:
+      'https://source.unsplash.com/400x300/?italian-restaurant&sig=4',
   },
   {
     id: 5,
@@ -64,7 +69,8 @@ export const places: Place[] = [
     lng: 13.405,
     review: 'Late-night favorite with crispy bases.',
     rating: 3,
-    image: 'https://picsum.photos/seed/pizza5/400/300',
+    image:
+      'https://source.unsplash.com/400x300/?italian-restaurant&sig=5',
   },
   {
     id: 6,
@@ -75,7 +81,8 @@ export const places: Place[] = [
     lng: -74.006,
     review: 'Classic New York slices done right.',
     rating: 4,
-    image: 'https://picsum.photos/seed/pizza6/400/300',
+    image:
+      'https://source.unsplash.com/400x300/?italian-restaurant&sig=6',
   },
   {
     id: 7,
@@ -86,7 +93,8 @@ export const places: Place[] = [
     lng: 144.9631,
     review: 'Laid-back spot with rich flavors.',
     rating: 4,
-    image: 'https://picsum.photos/seed/pizza7/400/300',
+    image:
+      'https://source.unsplash.com/400x300/?italian-restaurant&sig=7',
   },
   {
     id: 8,
@@ -97,7 +105,8 @@ export const places: Place[] = [
     lng: -43.1729,
     review: 'Beachside pizza with tropical vibes.',
     rating: 3,
-    image: 'https://picsum.photos/seed/pizza8/400/300',
+    image:
+      'https://source.unsplash.com/400x300/?italian-restaurant&sig=8',
   },
   {
     id: 9,
@@ -108,7 +117,8 @@ export const places: Place[] = [
     lng: 2.3522,
     review: 'Charming bistro serving gourmet slices.',
     rating: 5,
-    image: 'https://picsum.photos/seed/pizza9/400/300',
+    image:
+      'https://source.unsplash.com/400x300/?italian-restaurant&sig=9',
   },
   {
     id: 10,
@@ -119,6 +129,7 @@ export const places: Place[] = [
     lng: -79.3832,
     review: 'Modern take on traditional pizza.',
     rating: 4,
-    image: 'https://picsum.photos/seed/pizza10/400/300',
+    image:
+      'https://source.unsplash.com/400x300/?italian-restaurant&sig=10',
   },
 ]

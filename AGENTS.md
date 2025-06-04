@@ -64,3 +64,8 @@ Each PR description must contain:
 - **Testing** section describing which commands were run (`npm run lint`, `npm run build`, etc.) and confirming success.
 
 AI assistants must not stop until the application builds and runs without errors.
+
+### Binary Assets
+
+Binary files such as images must not be committed to the repository. Use remote
+URLs or placeholders when necessary.

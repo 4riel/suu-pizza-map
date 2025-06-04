@@ -4,7 +4,6 @@ import { places } from './data/places'
 import { MapView } from './components/MapView'
 import { Sidebar } from './components/Sidebar'
 import { PlaceModal } from './components/PlaceModal'
-import { PlaceCard } from './components/PlaceCard'
 import { SuggestModal } from './components/SuggestModal'
 
 const Container = styled.div`
@@ -42,12 +41,6 @@ function App() {
       />
       <div style={{ flex: 1 }}>
         <MapView places={list} selectedId={selectedId} onSelect={handleSelect} />
-        {selectedId && (
-          <PlaceCard
-            place={places.find((p) => p.id === selectedId)!}
-            onClose={() => setSelectedId(null)}
-          />
-        )}
       </div>
       {selectedPlace && (
         <PlaceModal
