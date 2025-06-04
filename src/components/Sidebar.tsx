@@ -16,11 +16,12 @@ const slideIn = keyframes`
 
 const Container = styled.div`
   width: 320px;
+  max-width: 85vw;
   background: ${theme.colors.background.primary};
   border-right: 1px solid ${theme.colors.border.light};
   display: flex;
   flex-direction: column;
-  height: 100vh;
+  height: 100%;
   overflow: hidden;
   position: relative;
   box-shadow: ${theme.colors.shadow.md};
@@ -37,12 +38,20 @@ const Container = styled.div`
     z-index: 10;
   }
   
-  @media (max-width: ${theme.breakpoints.md}) {
-    width: 100%;
-    height: 200px;
+  /* Mobile: Full height with proper scrolling */
+  @media (max-width: ${theme.breakpoints.lg}) {
+    width: 320px;
+    max-width: 85vw;
+    height: 100vh;
     border-right: none;
-    border-bottom: 1px solid ${theme.colors.border.light};
-    animation: none;
+    box-shadow: ${theme.colors.shadow.xl};
+  }
+  
+  /* Desktop: Standard sidebar */
+  @media (min-width: ${theme.breakpoints.lg}) {
+    width: 320px;
+    max-width: none;
+    height: 100vh;
   }
 `
 
@@ -53,6 +62,36 @@ const Header = styled.div`
   position: sticky;
   top: 0;
   z-index: 5;
+  position: relative;
+`
+
+const MobileCloseButton = styled.button`
+  position: absolute;
+  top: ${theme.spacing.md};
+  right: ${theme.spacing.md};
+  background: ${theme.colors.background.secondary};
+  border: 2px solid ${theme.colors.border.light};
+  width: 36px;
+  height: 36px;
+  border-radius: ${theme.borderRadius.circle};
+  font-size: ${theme.typography.sizes.lg};
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: ${theme.transitions.bounce};
+  
+  &:hover {
+    background: ${theme.colors.primary};
+    color: ${theme.colors.text.white};
+    border-color: ${theme.colors.primary};
+    transform: scale(1.1);
+  }
+  
+  /* Only show on mobile */
+  @media (min-width: ${theme.breakpoints.lg}) {
+    display: none;
+  }
 `
 
 const Title = styled.h2`
@@ -255,6 +294,7 @@ interface SidebarProps {
   filter: string
   onFilter: (val: string) => void
   onSuggest: () => void
+  onClose?: () => void
 }
 
 export const Sidebar: React.FC<SidebarProps> = ({ 
@@ -263,7 +303,8 @@ export const Sidebar: React.FC<SidebarProps> = ({
   onSelect, 
   filter, 
   onFilter, 
-  onSuggest 
+  onSuggest,
+  onClose
 }) => {
   const refs = useRef<Record<number, HTMLDivElement | null>>({})
 
@@ -290,6 +331,11 @@ export const Sidebar: React.FC<SidebarProps> = ({
   return (
     <Container>
       <Header>
+        {onClose && (
+          <MobileCloseButton onClick={onClose} aria-label="Close sidebar">
+            ✕
+          </MobileCloseButton>
+        )}
         <Title>
           <PizzaIcon>🍕</PizzaIcon>
           Suu's Pizza Map
