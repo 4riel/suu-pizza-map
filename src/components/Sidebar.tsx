@@ -18,9 +18,10 @@ const Wrapper = styled.div`
 `
 
 const ListItem = styled.div<{ active: boolean }>`
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #ddd;
   cursor: pointer;
+  &.sidebar-card {
+    padding: 0.5rem;
+  }
   background: ${({ active }) => (active ? '#f0f0f0' : 'transparent')};
 `
 
@@ -34,15 +35,27 @@ const SearchInput = styled.input`
   margin-bottom: 0.5rem;
 `
 
+const SuggestButton = styled.button`
+  width: 100%;
+  padding: 0.5rem;
+  margin-top: 0.5rem;
+  background: #333;
+  color: #fff;
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+`
+
 interface SidebarProps {
   places: Place[]
   selectedId: number | null
   onSelect: (id: number) => void
   filter: string
   onFilter: (val: string) => void
+  onSuggest: () => void
 }
 
-export const Sidebar: React.FC<SidebarProps> = ({ places, selectedId, onSelect, filter, onFilter }) => {
+export const Sidebar: React.FC<SidebarProps> = ({ places, selectedId, onSelect, filter, onFilter, onSuggest }) => {
   const refs = useRef<Record<number, HTMLDivElement | null>>({})
   useEffect(() => {
     if (selectedId && refs.current[selectedId]) {
@@ -68,12 +81,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ places, selectedId, onSelect, 
       {filtered.map((place) => (
         <ListItem
           key={place.id}
+          className={`sidebar-card${place.id === selectedId ? ' active' : ''}`}
           ref={(el: HTMLDivElement | null) => {
             refs.current[place.id] = el
           }}
           active={place.id === selectedId}
           onClick={() => onSelect(place.id)}
         >
+          <span role="img" aria-label="pizza">🍕</span>{' '}
           <strong>{place.name}</strong>
           <br />
           {place.city}, {place.country}
@@ -83,6 +98,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ places, selectedId, onSelect, 
           <small>{place.review}</small>
         </ListItem>
       ))}
+      <SuggestButton onClick={onSuggest}>Suggest a Spot for Suu</SuggestButton>
     </Wrapper>
   )
 }

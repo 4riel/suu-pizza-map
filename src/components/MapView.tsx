@@ -2,16 +2,8 @@ import { MapContainer, TileLayer, Marker, useMap } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css'
 import * as L from 'leaflet'
 import type { Place } from '../data/places'
-import { useEffect } from 'react'
+import { useEffect, useMemo } from 'react'
 
-const icon = new L.Icon({
-  iconUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-icon.png',
-  iconSize: [25, 41],
-  iconAnchor: [12, 41],
-  popupAnchor: [1, -34],
-  shadowUrl: 'https://unpkg.com/leaflet@1.9.4/dist/images/marker-shadow.png',
-  shadowSize: [41, 41],
-})
 
 interface MapViewProps {
   places: Place[]
@@ -29,14 +21,38 @@ const FlyToMarker: React.FC<{ position: L.LatLngExpression }> = ({ position }) =
 
 export const MapView: React.FC<MapViewProps> = ({ places, selectedId, onSelect }) => {
   const selectedPlace = places.find((p) => p.id === selectedId)
+  const colorMap = useMemo(() => {
+    const map = new Map<number, string>()
+    places.forEach((p) => {
+      const color = `#${Math.floor(Math.random() * 0xffffff)
+        .toString(16)
+        .padStart(6, '0')}`
+      map.set(p.id, color)
+    })
+    return map
+  }, [places])
+
+  const getIcon = (id: number) =>
+    L.divIcon({
+      html: `<div class="pizza-icon${
+        id === selectedId ? ' selected' : ''
+      }" style="background:${colorMap.get(id)}">🍕</div>`,
+      className: '' as string,
+      iconSize: [32, 32],
+      iconAnchor: [16, 16],
+    })
   return (
     <MapContainer center={[20, 0] as L.LatLngExpression} zoom={2} style={{ height: '100%', width: '100%' }}>
-      <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" attribution="&copy; OpenStreetMap contributors" />
+      {/* Use a tile provider with English labels */}
+      <TileLayer
+        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+        attribution="&copy; OpenStreetMap contributors &copy; CARTO"
+      />
       {places.map((place) => (
         <Marker
           key={place.id}
           position={[place.lat, place.lng] as L.LatLngExpression}
-          icon={icon}
+          icon={getIcon(place.id)}
           eventHandlers={{ click: () => onSelect(place.id) }}
         ></Marker>
       ))}
