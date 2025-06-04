@@ -1,11 +1,12 @@
 import { useState } from 'react'
 import styled, { keyframes } from 'styled-components'
+
 import { places } from '../data/places'
-import { MapView } from './MapView'
-import { Sidebar } from './Sidebar'
-import { PlaceModal } from './PlaceModal'
-import { SuggestModal } from './SuggestModal'
 import { theme } from '../styles/theme'
+import { MapView } from './MapView'
+import { PlaceModal } from './PlaceModal'
+import { Sidebar } from './Sidebar'
+import { SuggestModal } from './SuggestModal'
 
 const fadeIn = keyframes`
   from {
@@ -68,18 +69,17 @@ export const MapPage: React.FC = () => {
   const [filter, setFilter] = useState('')
   const [showSuggest, setShowSuggest] = useState(false)
 
-  const handleSelect = (id: number) => {
+  const handleSelect = (id: number): void => {
     setSelectedId(id)
   }
 
-  const filteredPlaces = places.filter(
-    (p) =>
-      p.name.toLowerCase().includes(filter.toLowerCase()) ||
-      p.city.toLowerCase().includes(filter.toLowerCase())
+  const filteredPlaces = places.filter(place =>
+    place.name.toLowerCase().includes(filter.toLowerCase()) ||
+    place.city.toLowerCase().includes(filter.toLowerCase())
   )
 
   const list = filter ? filteredPlaces : places
-  const selectedPlace = places.find((p) => p.id === selectedId) || null
+  const selectedPlace = places.find(place => place.id === selectedId) || null
 
   return (
     <Container>
@@ -91,16 +91,21 @@ export const MapPage: React.FC = () => {
         onFilter={setFilter}
         onSuggest={() => setShowSuggest(true)}
       />
+      
       <MapContainer>
         <MapView places={list} selectedId={selectedId} onSelect={handleSelect} />
       </MapContainer>
+      
       {selectedPlace && (
         <PlaceModal
           place={selectedPlace}
           onClose={() => setSelectedId(null)}
         />
       )}
-      {showSuggest && <SuggestModal onClose={() => setShowSuggest(false)} />}
+      
+      {showSuggest && (
+        <SuggestModal onClose={() => setShowSuggest(false)} />
+      )}
     </Container>
   )
 } 

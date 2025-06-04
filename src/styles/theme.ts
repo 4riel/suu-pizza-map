@@ -40,11 +40,11 @@ export const theme = {
   },
   
   typography: {
-      fonts: {
-    primary: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-    heading: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-    body: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
-  },
+    fonts: {
+      primary: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+      heading: "'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+      body: "'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+    },
     
     sizes: {
       xs: '0.75rem',    // 12px

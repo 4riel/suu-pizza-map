@@ -1,7 +1,8 @@
-import styled, { keyframes } from 'styled-components'
 import { Link } from 'react-router-dom'
-import { theme } from '../styles/theme'
+import styled, { keyframes } from 'styled-components'
+
 import { useParallax } from '../hooks/useScrollAnimation'
+import { theme } from '../styles/theme'
 
 const float = keyframes`
   0% { transform: translateY(0px); }
@@ -161,20 +162,20 @@ export const HeroSection: React.FC = () => {
   const { offset: parallaxOffset, elementRef } = useParallax(0.3)
 
   return (
-    <HeroContainer ref={elementRef as any} $parallaxOffset={parallaxOffset}>
+    <HeroContainer ref={elementRef} $parallaxOffset={parallaxOffset}>
       <BackgroundShape />
+      
       <HeroContent>
         <TextContent>
-          <Headline>
-            Discover Pizza Paradise with Suu
-          </Headline>
+          <Headline>Discover Pizza Paradise with Suu</Headline>
+          
           <Subheadline>
             Join our fearless food explorer as she hunts down the world's most incredible pizza slices, one bite at a time
           </Subheadline>
-          <CTAButton to="/map">
-            🍕 Explore Pizza Map
-          </CTAButton>
+          
+          <CTAButton to="/map">🍕 Explore Pizza Map</CTAButton>
         </TextContent>
+        
         <HeroImage>
           <PizzaIcon>🍕</PizzaIcon>
         </HeroImage>

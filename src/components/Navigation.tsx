@@ -1,5 +1,6 @@
-import styled from 'styled-components'
 import { Link, useLocation } from 'react-router-dom'
+import styled from 'styled-components'
+
 import { theme } from '../styles/theme'
 
 const Nav = styled.nav`
@@ -23,34 +24,35 @@ const Nav = styled.nav`
 `
 
 const Logo = styled.div`
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #d73027;
+  font-family: ${theme.typography.fonts.heading};
+  font-size: ${theme.typography.sizes.xl};
+  font-weight: ${theme.typography.weights.bold};
+  color: ${theme.colors.primary};
   text-decoration: none;
 `
 
 const NavLinks = styled.div`
   display: flex;
-  gap: 2rem;
+  gap: ${theme.spacing.xl};
   align-items: center;
 `
 
 const NavLink = styled(Link)<{ $isActive: boolean }>`
   text-decoration: none;
-  color: ${props => props.$isActive ? '#d73027' : '#333'};
-  font-weight: ${props => props.$isActive ? '600' : '400'};
-  padding: 0.5rem 1rem;
-  border-radius: 25px;
-  transition: all 0.3s ease;
+  color: ${props => props.$isActive ? theme.colors.primary : theme.colors.text.primary};
+  font-weight: ${props => props.$isActive ? theme.typography.weights.semibold : theme.typography.weights.normal};
+  padding: ${theme.spacing.sm} ${theme.spacing.md};
+  border-radius: ${theme.borderRadius.full};
+  transition: ${theme.transitions.normal};
   position: relative;
   
   &:hover {
-    color: #d73027;
-    background: rgba(215, 48, 39, 0.1);
+    color: ${theme.colors.primary};
+    background: ${theme.colors.primaryLight};
   }
   
   ${props => props.$isActive && `
-    background: rgba(215, 48, 39, 0.1);
+    background: ${theme.colors.primaryLight};
   `}
 `
 
