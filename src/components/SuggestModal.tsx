@@ -1,5 +1,6 @@
-import styled, { keyframes } from 'styled-components'
 import { useState } from 'react'
+import styled, { keyframes } from 'styled-components'
+
 import { theme } from '../styles/theme'
 
 const fadeIn = keyframes`
@@ -258,12 +259,12 @@ export const SuggestModal: React.FC<SuggestModalProps> = ({ onClose }) => {
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [showSuccess, setShowSuccess] = useState(false)
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>): void => {
     const { name, value } = e.target
     setFormData(prev => ({ ...prev, [name]: value }))
   }
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent): Promise<void> => {
     e.preventDefault()
     setIsSubmitting(true)
     

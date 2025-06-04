@@ -1,7 +1,8 @@
-import styled from 'styled-components'
 import { Link } from 'react-router-dom'
-import { theme } from '../styles/theme'
+import styled from 'styled-components'
+
 import { useScrollAnimation } from '../hooks/useScrollAnimation'
+import { theme } from '../styles/theme'
 
 const FooterContainer = styled.footer<{ $isVisible: boolean }>`
   background: ${theme.colors.text.primary};

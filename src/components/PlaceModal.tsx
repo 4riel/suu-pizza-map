@@ -1,6 +1,7 @@
-import styled, { keyframes } from 'styled-components'
-import type { Place } from '../data/places'
 import * as React from 'react'
+import styled, { keyframes } from 'styled-components'
+
+import type { Place } from '../data/places'
 import { theme } from '../styles/theme'
 
 const fadeIn = keyframes`
@@ -272,8 +273,8 @@ interface PlaceModalProps {
   onClose: () => void
 }
 
-export const PlaceModal: React.FC<PlaceModalProps> = ({ place, onClose }: PlaceModalProps) => {
-  const renderStars = (rating: number) => {
+export const PlaceModal: React.FC<PlaceModalProps> = ({ place, onClose }) => {
+  const renderStars = (rating: number): string => {
     return '★'.repeat(rating) + '☆'.repeat(5 - rating)
   }
 

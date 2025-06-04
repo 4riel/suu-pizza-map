@@ -1,6 +1,7 @@
 import styled, { keyframes } from 'styled-components'
-import { theme } from '../styles/theme'
+
 import { useScrollAnimation, useParallax } from '../hooks/useScrollAnimation'
+import { theme } from '../styles/theme'
 
 const fadeInUp = keyframes`
   from {
@@ -98,21 +99,23 @@ const TextSection = styled.div`
 `
 
 const Title = styled.h2`
-  font-size: 2.5rem;
-  font-weight: 700;
-  color: #2c3e50;
-  margin-bottom: 1.5rem;
+  font-family: ${theme.typography.fonts.heading};
+  font-size: ${theme.typography.sizes['4xl']};
+  font-weight: ${theme.typography.weights.bold};
+  color: ${theme.colors.text.primary};
+  margin-bottom: ${theme.spacing.lg};
   
-  @media (max-width: 768px) {
-    font-size: 2rem;
+  @media (max-width: ${theme.breakpoints.md}) {
+    font-size: ${theme.typography.sizes['3xl']};
   }
 `
 
 const Description = styled.p`
-  font-size: 1.1rem;
-  line-height: 1.8;
-  color: #555;
-  margin-bottom: 2rem;
+  font-family: ${theme.typography.fonts.body};
+  font-size: ${theme.typography.sizes.lg};
+  line-height: ${theme.typography.lineHeights.loose};
+  color: ${theme.colors.text.secondary};
+  margin-bottom: ${theme.spacing.xl};
 `
 
 const StatsContainer = styled.div`
@@ -128,28 +131,31 @@ const StatsContainer = styled.div`
 
 const StatCard = styled.div`
   text-align: center;
-  padding: 1.5rem;
-  background: white;
-  border-radius: 15px;
-  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  transition: transform 0.3s ease;
+  padding: ${theme.spacing.lg};
+  background: ${theme.colors.background.primary};
+  border-radius: ${theme.borderRadius.xl};
+  box-shadow: ${theme.colors.shadow.md};
+  transition: ${theme.transitions.normal};
   
   &:hover {
     transform: translateY(-5px);
+    box-shadow: ${theme.colors.shadow.lg};
   }
 `
 
 const StatNumber = styled.div`
-  font-size: 2rem;
-  font-weight: 800;
-  color: #d73027;
-  margin-bottom: 0.5rem;
+  font-family: ${theme.typography.fonts.heading};
+  font-size: ${theme.typography.sizes['3xl']};
+  font-weight: ${theme.typography.weights.extrabold};
+  color: ${theme.colors.primary};
+  margin-bottom: ${theme.spacing.sm};
 `
 
 const StatLabel = styled.div`
-  font-size: 0.9rem;
-  color: #666;
-  font-weight: 500;
+  font-family: ${theme.typography.fonts.body};
+  font-size: ${theme.typography.sizes.sm};
+  color: ${theme.colors.text.light};
+  font-weight: ${theme.typography.weights.medium};
 `
 
 export const AboutSection: React.FC = () => {
@@ -157,37 +163,40 @@ export const AboutSection: React.FC = () => {
   const { offset: parallaxOffset, elementRef: parallaxRef } = useParallax(0.5)
 
   return (
-    <AboutContainer 
-      ref={elementRef as any} 
-      $isVisible={isVisible} 
-      $parallaxOffset={parallaxOffset}
-      id="about"
-    >
-      <Content ref={parallaxRef as any}>
+          <AboutContainer 
+        ref={elementRef as any} // eslint-disable-line @typescript-eslint/no-explicit-any
+        $isVisible={isVisible} 
+        $parallaxOffset={parallaxOffset}
+        id="about"
+      >
+        <Content ref={parallaxRef as any}> {/* eslint-disable-line @typescript-eslint/no-explicit-any */}
         <ImageSection>
-          <ProfileImage>
-            👩‍🍳
-          </ProfileImage>
+          <ProfileImage>👩‍🍳</ProfileImage>
         </ImageSection>
+        
         <TextSection>
           <Title>Meet Suu, Korean Pizza Explorer Extraordinaire</Title>
+          
           <Description>
             Meet Suu, the Korean globe-trotting pizza connoisseur who's made it her mission to find the perfect slice. 
             From hidden gems in Naples' narrow streets to innovative fusion spots in Tokyo, Suu rates every pizza 
             with brutal honesty and infectious enthusiasm. Her reviews have helped thousands discover their new 
             favorite pizza spots across the world.
           </Description>
+          
           <Description>
             Born and raised in Seoul, Suu grew up with a palate trained on kimchi and bulgogi, which gave her 
             a unique appreciation for bold flavors and fermented goodness. She jokes that her love for pizza 
             started as a quest to find something as satisfying as kimchi jjigae - and surprisingly, 
             a good margherita comes pretty close! 🥢➡️🍕
           </Description>
+          
           <Description>
             With a passport full of stamps and a stomach full of amazing memories, Suu brings you authentic, 
             unbiased reviews that go beyond just taste. She explores the culture, the people, and the stories 
             behind every slice - always with a side of Korean humor and maybe some gochujang recommendations.
           </Description>
+          
           <StatsContainer>
             <StatCard>
               <StatNumber>500+</StatNumber>

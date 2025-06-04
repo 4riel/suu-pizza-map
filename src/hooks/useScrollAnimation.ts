@@ -6,7 +6,12 @@ interface UseScrollAnimationOptions {
   triggerOnce?: boolean
 }
 
-export const useScrollAnimation = (options: UseScrollAnimationOptions = {}) => {
+interface ScrollAnimationReturn {
+  isVisible: boolean
+  elementRef: React.RefObject<HTMLElement | null>
+}
+
+export const useScrollAnimation = (options: UseScrollAnimationOptions = {}): ScrollAnimationReturn => {
   const { threshold = 0.1, rootMargin = '0px', triggerOnce = true } = options
   const [isVisible, setIsVisible] = useState(false)
   const elementRef = useRef<HTMLElement>(null)
@@ -39,12 +44,17 @@ export const useScrollAnimation = (options: UseScrollAnimationOptions = {}) => {
   return { isVisible, elementRef }
 }
 
-export const useParallax = (speed: number = 0.5) => {
+interface ParallaxReturn {
+  offset: number
+  elementRef: React.RefObject<HTMLElement | null>
+}
+
+export const useParallax = (speed: number = 0.5): ParallaxReturn => {
   const [offset, setOffset] = useState(0)
   const elementRef = useRef<HTMLElement>(null)
 
   useEffect(() => {
-    const handleScroll = () => {
+    const handleScroll = (): void => {
       if (!elementRef.current) return
       
       const rect = elementRef.current.getBoundingClientRect()
@@ -63,8 +73,13 @@ export const useParallax = (speed: number = 0.5) => {
   return { offset, elementRef }
 }
 
-export const useSmoothScroll = () => {
-  const scrollToElement = (elementId: string) => {
+interface SmoothScrollReturn {
+  scrollToElement: (elementId: string) => void
+  scrollToTop: () => void
+}
+
+export const useSmoothScroll = (): SmoothScrollReturn => {
+  const scrollToElement = (elementId: string): void => {
     const element = document.getElementById(elementId)
     if (element) {
       element.scrollIntoView({
@@ -74,7 +89,7 @@ export const useSmoothScroll = () => {
     }
   }
 
-  const scrollToTop = () => {
+  const scrollToTop = (): void => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',

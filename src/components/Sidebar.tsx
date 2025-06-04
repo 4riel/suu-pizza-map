@@ -1,7 +1,8 @@
+import { useRef, useEffect } from 'react'
 import styled, { keyframes } from 'styled-components'
+
 import type { Place } from '../data/places'
 import { theme } from '../styles/theme'
-import { useRef, useEffect } from 'react'
 
 const slideIn = keyframes`
   from {
@@ -276,14 +277,13 @@ export const Sidebar: React.FC<SidebarProps> = ({
     }
   }, [selectedId])
 
-  const filteredPlaces = places.filter(
-    (place) =>
-      place.name.toLowerCase().includes(filter.toLowerCase()) ||
-      place.city.toLowerCase().includes(filter.toLowerCase()) ||
-      place.country.toLowerCase().includes(filter.toLowerCase())
+  const filteredPlaces = places.filter(place =>
+    place.name.toLowerCase().includes(filter.toLowerCase()) ||
+    place.city.toLowerCase().includes(filter.toLowerCase()) ||
+    place.country.toLowerCase().includes(filter.toLowerCase())
   )
 
-  const renderStars = (rating: number) => {
+  const renderStars = (rating: number): string => {
     return '★'.repeat(rating) + '☆'.repeat(5 - rating)
   }
 
