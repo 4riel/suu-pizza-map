@@ -1,6 +1,7 @@
 # Suu Pizza Map
 
 A minimal React + Leaflet map showing pizza spots around the world.
+The map now uses the colorful CARTO Voyager tiles for a look similar to Airbnb.
 
 **Live site:** <https://4riel.github.io/suu-pizza-map/>
 
