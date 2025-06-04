@@ -18,9 +18,10 @@ const Wrapper = styled.div`
 `
 
 const ListItem = styled.div<{ active: boolean }>`
-  padding: 0.5rem 0;
-  border-bottom: 1px solid #ddd;
   cursor: pointer;
+  &.sidebar-card {
+    padding: 0.5rem;
+  }
   background: ${({ active }) => (active ? '#f0f0f0' : 'transparent')};
 `
 
@@ -68,12 +69,14 @@ export const Sidebar: React.FC<SidebarProps> = ({ places, selectedId, onSelect, 
       {filtered.map((place) => (
         <ListItem
           key={place.id}
+          className={`sidebar-card${place.id === selectedId ? ' active' : ''}`}
           ref={(el: HTMLDivElement | null) => {
             refs.current[place.id] = el
           }}
           active={place.id === selectedId}
           onClick={() => onSelect(place.id)}
         >
+          <span role="img" aria-label="pizza">🍕</span>{' '}
           <strong>{place.name}</strong>
           <br />
           {place.city}, {place.country}
