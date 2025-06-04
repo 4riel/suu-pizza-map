@@ -1,55 +1,19 @@
-import { useState } from 'react'
-import styled from 'styled-components'
-import { places } from './data/places'
-import { MapView } from './components/MapView'
-import { Sidebar } from './components/Sidebar'
-import { PlaceModal } from './components/PlaceModal'
-import { SuggestModal } from './components/SuggestModal'
-
-const Container = styled.div`
-  display: flex;
-  height: 100vh;
-`
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { Navigation } from './components/Navigation'
+import { LandingPage } from './components/LandingPage'
+import { MapPage } from './components/MapPage'
+import { SuggestPage } from './components/SuggestPage'
 
 function App() {
-  const [selectedId, setSelectedId] = useState<number | null>(null)
-  const [filter, setFilter] = useState('')
-  const [showSuggest, setShowSuggest] = useState(false)
-
-  const handleSelect = (id: number) => {
-    setSelectedId(id)
-  }
-
-  const filteredPlaces = places.filter(
-    (p) =>
-      p.name.toLowerCase().includes(filter.toLowerCase()) ||
-      p.city.toLowerCase().includes(filter.toLowerCase())
-  )
-
-  const list = filter ? filteredPlaces : places
-  const selectedPlace = places.find((p) => p.id === selectedId) || null
-
   return (
-    <Container>
-      <Sidebar
-        places={places}
-        selectedId={selectedId}
-        onSelect={handleSelect}
-        filter={filter}
-        onFilter={setFilter}
-        onSuggest={() => setShowSuggest(true)}
-      />
-      <div style={{ flex: 1 }}>
-        <MapView places={list} selectedId={selectedId} onSelect={handleSelect} />
-      </div>
-      {selectedPlace && (
-        <PlaceModal
-          place={selectedPlace}
-          onClose={() => setSelectedId(null)}
-        />
-      )}
-      {showSuggest && <SuggestModal onClose={() => setShowSuggest(false)} />}
-    </Container>
+    <Router basename="/suu-pizza-map">
+      <Navigation />
+      <Routes>
+        <Route path="/" element={<LandingPage />} />
+        <Route path="/map" element={<MapPage />} />
+        <Route path="/suggest" element={<SuggestPage />} />
+      </Routes>
+    </Router>
   )
 }
 
