@@ -32,6 +32,7 @@ jobs:
       - name: Build project
         run: npm run build
         env:
+          # Set custom base path for PR previews - this affects both Vite build and React Router basename
           BASE_PATH: "/suu-pizza-map/pr-${{ github.event.pull_request.number }}/"
 
       - name: Deploy to gh-pages under PR number

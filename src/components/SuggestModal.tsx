@@ -31,12 +31,20 @@ const Overlay = styled.div`
   height: 100%;
   background: ${theme.colors.overlay};
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
   z-index: ${theme.zIndex.modal};
   animation: ${fadeIn} 0.3s ease-out;
   backdrop-filter: blur(8px);
-  padding: ${theme.spacing.lg};
+  padding: ${theme.spacing.sm};
+  padding-top: 80px; /* Account for navbar height on mobile */
+  overflow-y: auto;
+  
+  @media (min-width: ${theme.breakpoints.md}) {
+    align-items: center;
+    padding: ${theme.spacing.lg};
+    padding-top: 100px; /* Account for navbar height on desktop */
+  }
 `
 
 const Modal = styled.div`
