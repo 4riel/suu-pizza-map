@@ -1,0 +1,58 @@
+# Deploy preview site for pull requests
+# Builds the project and publishes the dist folder to a
+# subfolder on the gh-pages branch named after the PR number.
+# For example: gh-pages/pr-42/
+name: Preview PR build
+
+on:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 18
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build project
+        # Set BASE_PATH so Vite generates correct asset URLs for the
+        # deployment directory pr-<number>
+        run: npm run build
+        env:
+          BASE_PATH: /suu-pizza-map/pr-${{ github.event.pull_request.number }}/
+
+      - name: Deploy to gh-pages under PR number
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_branch: gh-pages
+          publish_dir: ./dist
+          destination_dir: pr-${{ github.event.pull_request.number }}
+          keep_files: true
+
+      - name: Comment preview URL
+        if: github.event.pull_request.head.repo.full_name == github.repository
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const pr = context.payload.pull_request.number;
+            const url = `https://${context.repo.owner}.github.io/${context.repo.repo}/pr-${pr}/`;
+            await github.rest.issues.createComment({
+              ...context.repo,
+              issue_number: pr,
+              body: `Preview: ${url}`,
+            });
+
