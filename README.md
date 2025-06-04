@@ -1,92 +1,114 @@
 # Suu's Pizza Map 🍕
 
-**Discover the world's best pizza places through the eyes of Suu, a passionate Korean food explorer!**
+An interactive web application showcasing Suu's pizza adventures around the world. Features an interactive map with detailed reviews and cultural insights from a Korean food explorer's perspective.
 
-Suu's Pizza Map is an interactive web application that showcases incredible pizza destinations around the globe, featuring authentic reviews, personal stories, and cultural insights from Suu's culinary adventures.
+## Overview
 
-## What is Suu's Pizza Map?
-
-This project is a **food lover's dream** - a beautifully designed interactive map that takes you on a journey through Suu's pizza adventures across continents. From authentic Neapolitan pies in Naples to fusion Korean-style pizza in Seoul, each location comes with:
-
-- 🗺️ **Interactive World Map** - Explore pizza places globally with smooth, responsive navigation
-- 📖 **Personal Stories** - Read Suu's authentic reviews and cultural observations
-- ⭐ **Ratings & Details** - Get comprehensive information including prices, specialties, and must-try dishes
-- 🎯 **Cultural Insights** - Discover how pizza culture varies across different countries
-- 💬 **Suu's Quotes** - Enjoy humorous and insightful commentary from a Korean perspective
-- 📱 **Mobile-First Design** - Optimized for exploring on any device
-
-## Features
-
-### 🏠 **Landing Page**
-- Hero section with animated pizza elements
-- About section explaining Suu's mission
-- Beautiful gradient backgrounds and smooth animations
-
-### 🗺️ **Interactive Pizza Map**
-- Real-time map exploration using Leaflet
-- Clickable pizza markers with detailed information
-- Sidebar with filterable pizza place listings
-- Detailed modals for each location
-
-### 📝 **Suggest New Places**
-- Community-driven suggestions for new pizza destinations
-- Form for submitting pizza place recommendations
-
-### 📊 **Rich Pizza Database**
-- 12+ carefully curated pizza places across 10+ countries
-- Detailed information including:
-  - Personal reviews and ratings
-  - Address, phone, and website details
-  - Operating hours and price ranges
-  - Specialty dishes and must-try items
-  - Suu's personal quotes and visit dates
+This project displays Suu's worldwide pizza place database through an interactive map interface. Users can browse locations, read reviews, and suggest new places to visit.
 
 **Live site:** <https://4riel.github.io/suu-pizza-map/>
 
+## Features
+
+- Interactive world map with pizza place markers
+- Detailed place information with reviews and ratings  
+- Mobile-responsive design with floating action buttons
+- Smart clustering for better map navigation at different zoom levels
+- Search and filter functionality
+- Place suggestion form
+
 ## Development
 
-1. Install dependencies
-
+1. Install dependencies:
    ```bash
    npm install
    ```
 
-2. Start the dev server
-
+2. Start development server:
    ```bash
    npm run dev
    ```
+   Open <http://localhost:5173/suu-pizza-map/>
 
-   Then open <http://localhost:5173/suu-pizza-map/> in your browser.
+3. Build for production:
+   ```bash
+   npm run build
+   ```
 
-## Deployment
+## Deployment & Routing
 
-A GitHub Actions workflow builds the project and publishes `dist` to the
-`gh-pages` branch whenever you push to `main`. The site will be updated
-shortly after.
+### Main Deployment
+- **Auto-deploy**: Pushes to `main` branch trigger GitHub Actions deployment
+- **URL**: `https://4riel.github.io/suu-pizza-map/`
+- **Base path**: `/suu-pizza-map/`
+
+### PR Preview Deployments
+- **Auto-deploy**: Pull requests get preview deployments
+- **URL pattern**: `https://4riel.github.io/suu-pizza-map/pr-{number}/`
+- **Base path**: `/suu-pizza-map/pr-{number}/`
+
+#### Technical Implementation
+The app uses dynamic base paths to support both main and PR deployments:
+
+```typescript
+// App.tsx - Dynamic basename calculation
+const getBasename = () => {
+  const basePath = import.meta.env.BASE_URL
+  if (import.meta.env.DEV) {
+    return basePath === '/' ? '' : basePath
+  }
+  return basePath.endsWith('/') ? basePath.slice(0, -1) : basePath
+}
+```
+
+The GitHub Actions workflow sets `BASE_PATH` environment variable for PR builds:
+```yaml
+env:
+  BASE_PATH: "/suu-pizza-map/pr-${{ github.event.pull_request.number }}/"
+```
+
+This ensures React Router and Vite use the correct paths for both scenarios.
 
 ## Tech Stack
 
-- **Frontend**: React 19 + TypeScript
-- **Styling**: Styled Components with custom design system
-- **Mapping**: Leaflet + React-Leaflet
-- **Routing**: React Router DOM
-- **Build Tool**: Vite
-- **Deployment**: GitHub Pages
+- **React 19** + TypeScript
+- **Styled Components** for styling
+- **Leaflet** + React-Leaflet for mapping
+- **React Router DOM** for navigation
+- **Vite** for build tooling
+- **GitHub Pages** for hosting
+
+## Mobile Features
+
+- **Floating action buttons**: 🍕 (sidebar), 📍 (location), ✨ (suggest)
+- **Responsive sidebar**: Full-screen on mobile, overlay on desktop
+- **Touch-optimized**: 44px minimum touch targets
+- **Smart clustering**: Zoom-dependent pizza place grouping
+- **Modal optimization**: Proper sizing and navbar clearance
 
 ## Project Structure
 
-- `src/` – application source code
-  - `components/` – React components (Navigation, Map, Modals, etc.)
-  - `data/` – Pizza places database and type definitions
-  - `styles/` – Theme and styling configuration
-  - `hooks/` – Custom React hooks
-- `src/index.html` – Vite entry file
-- `vite.config.ts` – build configuration
+```
+src/
+├── components/          # React components
+│   ├── Navigation.tsx   # Main navigation with mobile menu
+│   ├── MapPage.tsx      # Map container with floating buttons
+│   ├── MapView.tsx      # Leaflet map with clustering
+│   ├── Sidebar.tsx      # Pizza places list with search
+│   ├── PlaceModal.tsx   # Pizza place details modal
+│   └── ...
+├── data/
+│   ├── places.ts        # Pizza places database
+│   └── types.ts         # TypeScript definitions
+├── styles/
+│   ├── theme.ts         # Design system configuration
+│   └── GlobalStyles.tsx # Global styling
+└── index.html           # Vite entry point
+```
 
 ## Contributing
 
-Found an amazing pizza place that Suu should visit? Use the "Suggest a Place" feature on the website, or feel free to open an issue or pull request!
+Use the "Suggest a Place" feature in the app or submit issues/PRs for improvements.
 
 ---
 
